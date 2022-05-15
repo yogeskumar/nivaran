@@ -6,6 +6,7 @@ import OtherCards from '../components/OtherCards';
 import FooterButtons from '../components/FooterButtons';
 import SearchBar from '../components/SearchBar';
 import LogoAndProfile from '../components/LogoAndProfile';
+import { firebase } from '@react-native-firebase/firestore';
 
 
 
@@ -13,15 +14,44 @@ export default function Home({ navigation, route }) {
 
     const [cities, setCities] = useState(null);
 
+    const fetchData = async () => {
+        // console.log(props.route);
+        const querysnapshot = await firebase.firestore().collection('hospitals').get();
+        const allHospitals = querysnapshot.docs.map(docsnap => docsnap.data());
+        // setMedicines(allMedicines)
+        try {
+            if (querysnapshot.docs[0]._exists) {
+                console.log(allHospitals)
+                const allCities = []
+                allHospitals.map(item => {
+                    allCities.push(item.city)
+                })
+                var uniqueCities = [...new Set(allCities)];
+                var uniqueCities = Array.from(uniqueCities);;
+                setCities(uniqueCities);
+            } else {
+                console.log("No such document!");
+            }
+        }
+        catch (error) {
+            alert('some problem occured')
+            console.log(error);
+        }
+    }
     useEffect(() => {
-        const allCities = []
-        Hospitals.map(item => {
-            allCities.push(item.city)
-        })
-        var uniqueCities = [...new Set(allCities)];
-        var uniqueCities = Array.from(uniqueCities);;
-        setCities(uniqueCities);
-    }, [])
+        fetchData()
+    }
+        , [])
+
+    // useEffect(() => {
+    //     const allCities = []
+    //     Hospitals.map(item => {
+    //         allCities.push(item.city)
+    //     })
+    //     var uniqueCities = [...new Set(allCities)];
+    //     var uniqueCities = Array.from(uniqueCities);;
+    //     setCities(uniqueCities);
+    // }, [])
 
     const renderItem = ({ item }) => (
         <TouchableOpacity

@@ -32,26 +32,26 @@ export default function StoreUser(props) {
                 alert('Passwords do not match!')
                 return
             }
-            if (name.length<8) {
+            if (name.length < 8) {
                 setLoading(false)
                 alert('Enter a valid name!')
                 return
             }
             // code here to store to firebse
             // const uid = () => {
-                var result = '';
-                var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                var charactersLength = characters.length;
-                for (var i = 0; i < 25; i++) {
-                    result += characters.charAt(Math.floor(Math.random() *
-                        charactersLength));
-                }
+            var result = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for (var i = 0; i < 25; i++) {
+                result += characters.charAt(Math.floor(Math.random() *
+                    charactersLength));
+            }
             //     return result;
             // }
             await firestore().collection('users').doc(String(result)).set({
                 mobilenumber: props.route.params.mobileNumber,
                 name: name,
-                password:password1,
+                password: password1,
                 uid: result
             })
             props.navigation.navigate('login')
@@ -73,21 +73,22 @@ export default function StoreUser(props) {
                 <Text style={{ fontSize: 20 }}>
                     Emergency Ka Solution
                 </Text>
-                    <TextInput
-                        style={{ width: '70%', marginVertical: 20 }}
-                        value={name}
-                        mode="outlined"
-                        label="Enter Name"
-                        onChangeText={(text) => {
-                            setName(text)
-                        }}
-                        maxLength={35}
+                <TextInput
+                    style={{ width: '70%', marginVertical: 20 }}
+                    value={name}
+                    mode="outlined"
+                    label="Enter Name"
+                    onChangeText={(text) => {
+                        setName(text)
+                    }}
+                    maxLength={35}
                 />
                 <TextInput
                     style={{ width: '70%' }}
                     value={password1}
                     mode="outlined"
                     label="Enter New Password"
+                    secureTextEntry={true}
                     onChangeText={(text) => {
                         setPassword1(text)
                     }}
@@ -99,12 +100,13 @@ export default function StoreUser(props) {
                     value={password2}
                     mode="outlined"
                     label="Confirm New Password"
+                    secureTextEntry={true}
                     onChangeText={(text) => {
                         setPassword2(text)
                     }}
                     // minLength={10}
                     maxLength={20}
-                />            
+                />
                 <Button
                     style={{ width: '70%', marginBottom: 20 }}
                     disabled={password1.length >= 10 && password2.length >= 10 ? false : true}

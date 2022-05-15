@@ -36,7 +36,7 @@ const theme = {
   colors: {
     ...DefaultTheme.colors,
     primary: Colors.primary,
-    background:Colors.background
+    background: Colors.background
   },
 };
 
@@ -68,7 +68,7 @@ function Navigation() {
         screenOptions={{
           headerTintColor: Colors.statusbar
         }}
-        // initialRouteName="signup"
+      // initialRouteName="signup"
       >
         <Stack.Screen name="home"
           options={{
@@ -88,7 +88,7 @@ function Navigation() {
         <Stack.Screen name='profile' component={Profile} options={{ headerShown: true }} />
         <Stack.Screen name='check' component={Check} options={{ headerShown: true }} />
         <Stack.Screen name='allchat' component={AllChats} options={{ headerShown: true }} />
-        <Stack.Screen name='chat' component={Chat} options={{ headerShown: true, title:false }} />
+        <Stack.Screen name='chat' component={Chat} options={{ headerShown: true, title: false }} />
         <Stack.Screen name='doctors' component={Doctors} options={{ headerShown: true, title: 'Doctors' }} />
         <Stack.Screen name='medicines' component={Medicines} options={{ headerShown: true, title: 'Medicines' }} />
         <Stack.Screen name='healthtips' component={HealthTips} options={{ headerShown: true, title: 'Stay Healty Stay Fit, Health Tips' }} />

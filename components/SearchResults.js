@@ -2,18 +2,24 @@ import { View, Text, StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from
 import React, { useEffect, useState } from 'react';
 import { Colors } from '../Colors';
 import { Hospitals } from '../DataBase';
+import { firebase } from '@react-native-firebase/firestore';
 
 export default function SearchResults(props) {
     const [results, setResults] = useState([]);
-    useEffect(() => {
+    const fetchData = async () => {
         const search = props.search;
-        var filteredHospitals = Hospitals.filter(function (el) {
+        const querysnapshot = await firebase.firestore().collection('hospitals').get();
+        const allHospitals = querysnapshot.docs.map(docsnap => docsnap.data());
+        var filteredHospitals = allHospitals.filter(function (el) {
             return (
                 el.city.toLowerCase().includes(search.toLowerCase().trim()) ||
                 el.hospitalname.toLowerCase().includes(search.toLowerCase().trim())
             );
         });
         setResults(filteredHospitals);
+    }
+    useEffect(() => {
+        fetchData()
     }, [props.search])
     return (
         <View keyboardShouldPersistTaps='handled' styles={styles.container}>
@@ -25,8 +31,8 @@ export default function SearchResults(props) {
                     }}
                 >
                     <View style={styles.searchResults}>
-                        <Text style={{ width: '70%', color:Colors.textcolor }}>{item.hospitalname}</Text>
-                        <Text>{item.city}</Text>
+                        <Text style={{ width: '70%', color: Colors.textcolor }}>{item.hospitalname}</Text>
+                        <Text style={{ color: Colors.textcolor }}>{item.city}</Text>
                     </View>
                 </TouchableOpacity>
             }) : <Text style={styles.searchResults}>No data...</Text>}

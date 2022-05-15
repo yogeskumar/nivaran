@@ -79,11 +79,11 @@ export default function Medicines(props) {
                     placeholderTextColor={Colors.textcolor}
                 />
                 {
-                    filteredDoctors && filteredDoctors.length>0 ?
+                    filteredDoctors && filteredDoctors.length > 0 ?
                         filteredDoctors.map(item => {
                             return <DoctorCard item={item} key={item.name} />
                         })
-                            : <Text style={{ color: 'black' }}>No data to show</Text>
+                        : <Text style={{ color: 'black' }}>No data to show</Text>
                 }
             </ScrollView>
         </SafeAreaView>

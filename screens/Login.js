@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { TextInput, Button } from 'react-native-paper';
 import { firebase } from '@react-native-firebase/firestore';
 
-import {  useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { LogIn } from '../store/actions';
 
 export default function Login(props) {
@@ -27,13 +27,13 @@ export default function Login(props) {
                 //     props.navigation.navigate(previousScreen)
                 // }
                 // else {
-                    props.navigation.navigate('home')
+                props.navigation.navigate('home')
                 // }
             } else {
                 alert('You are not registered yet, Please signup')
                 props.navigation.navigate('signup')
-            console.log("No such document!");
-        }
+                console.log("No such document!");
+            }
         }
         catch (error) {
             dispatch(LogIn('NoUser', false));
@@ -51,10 +51,10 @@ export default function Login(props) {
         <ScrollView keyboardShouldPersistTaps='handled' contentContainerStyle={{ flex: 1 }}>
             <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <Image style={{ width: '50%', height: '30%' }} source={require('../images/Nivaran-logo-in-blue.png')} />
-                <Text style={{ fontSize: 35, color:'black' }}>
+                <Text style={{ fontSize: 35, color: 'black' }}>
                     Welcome to Nivaran
                 </Text>
-                <Text style={{ fontSize: 20, color:'black' }}>
+                <Text style={{ fontSize: 20, color: 'black' }}>
                     Emergency Ka Solution
                 </Text>
 
@@ -75,6 +75,7 @@ export default function Login(props) {
                     value={password}
                     mode="outlined"
                     label="Enter Password"
+                    secureTextEntry={true}
                     onChangeText={(text) => {
                         setPassword(text)
                     }}
@@ -86,8 +87,8 @@ export default function Login(props) {
                     mode="contained"
                     onPress={userLogin}
                 >Login</Button>
-                <TouchableOpacity onPress={()=>props.navigation.navigate('signup')}>
-                    <Text style={{color:'black'}}>Don't have an account</Text>
+                <TouchableOpacity onPress={() => props.navigation.navigate('signup')}>
+                    <Text style={{ color: 'black' }}>Don't have an account</Text>
                 </TouchableOpacity>
             </SafeAreaView>
         </ScrollView>
