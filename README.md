@@ -14,6 +14,6 @@ Features-->
           5. Medicines usage info and disease treatment blogs.
           6. More features coming soon...
           
-Contact me for more any other query on yogshkr@gmail.com
+Contact me for any other query on yogshkr@gmail.com
 
 Any suggestions/improments are heartily welcomed
