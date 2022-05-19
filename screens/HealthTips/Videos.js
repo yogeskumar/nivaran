@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Alert, StyleSheet, Text } from 'react-native';
+import { View, Alert, StyleSheet, Text, ActivityIndicator } from 'react-native';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import { Icon } from 'react-native-elements';
 import { Colors } from '../../Colors';
@@ -9,7 +9,7 @@ import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get("window");
 
-export default function Videos({navigation}) {
+export default function Videos({ navigation }) {
   const [playing, setPlaying] = useState(false);
   const [isMute, setMute] = useState(false);
   const [videos, setVideos] = useState([]);
@@ -62,20 +62,21 @@ export default function Videos({navigation}) {
   return (
     <View style={styles.container}>
       {
-        videos.map(video => {
-          return <View key={video.id} style={styles.video}>
-                    <YoutubePlayer
-                      height={195}
-                      width={340}
-                      ref={controlRef}
-                      play={playing}
-                      mute={isMute}
-                      videoId={video.id}
-                      onChangeState={onStateChange}
-                    />
-            <Text style={{ color: Colors.primary, fontSize: 25, textAlign:'center', marginTop:0 }}>{video.title}</Text>
-          </View>
-        })
+        videos.length > 0 ?
+          videos.map(video => {
+            return <View key={video.id} style={styles.video}>
+              <YoutubePlayer
+                height={195}
+                width={340}
+                ref={controlRef}
+                play={playing}
+                mute={isMute}
+                videoId={video.id}
+                onChangeState={onStateChange}
+              />
+              <Text style={{ color: Colors.primary, fontSize: 25, textAlign: 'center', marginTop: 0, flexShrink: 1 }}>{video.title}</Text>
+            </View>
+          }) : <ActivityIndicator size='large' />
       }
       {/* <View style={styles.controlContainer}>
         <ControlIcon
@@ -105,14 +106,14 @@ const styles = StyleSheet.create({
     width: width,
     // backgroundColor: 'darkblue',
     justifyContent: 'space-between',
-    alignItems:'center'
+    alignItems: 'center'
   },
   video: {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'red',
-    width: width*0.95,
-    marginVertical: 15,
+    width: width * 0.95,
+    marginVertical: 50,
     backgroundColor: '#f5f9ff',
     borderRadius: 10,
     shadowColor: 'blue',
@@ -129,6 +130,6 @@ const styles = StyleSheet.create({
   controlContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    width: width*0.9
+    width: width * 0.9
   },
 });

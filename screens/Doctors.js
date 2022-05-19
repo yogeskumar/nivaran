@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView, TextInput, FlatList, StyleSheet } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, TextInput, ActivityIndicator, StyleSheet } from 'react-native'
 import React from 'react'
 import LogoAndProfile from '../components/LogoAndProfile'
 import { useState, useEffect } from 'react';
@@ -83,7 +83,7 @@ export default function Medicines(props) {
                         filteredDoctors.map(item => {
                             return <DoctorCard item={item} key={item.name} />
                         })
-                        : <Text style={{ color: 'black' }}>No data to show</Text>
+                        : <ActivityIndicator size='large' />
                 }
             </ScrollView>
         </SafeAreaView>

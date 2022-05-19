@@ -1,4 +1,4 @@
-import { View, Text, FlatList, ScrollView, SafeAreaView, StyleSheet } from 'react-native';
+import { View, Text, FlatList, ScrollView, SafeAreaView, StyleSheet, StatusBar, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import FooterButtons from '../components/FooterButtons';
 import { Hospitals } from './../DataBase'
@@ -23,11 +23,10 @@ export default function AvailableHospitals({ route, navigation }) {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
-                <LogoAndProfile navigation={navigation} route={route} />
                 {
                     availableHospitals ? availableHospitals.map(item => {
                         return <Card key={item} navigation={navigation} hospital={item} />
-                    }) : <Text>No data...</Text>
+                    }) : <ActivityIndicator size='large' />
                 }
                 {/* <FlatList
                     data={availableHospitals}
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         position: 'relative',
-        backgroundColor: Colors.background
-        // marginTop: StatusBar.currentHeight || 0,
+        backgroundColor: Colors.background,
+        marginTop: StatusBar.currentHeight || 0,
     }
 })

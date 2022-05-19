@@ -1,13 +1,13 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Colors } from '../Colors';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 export default function OtherCards(props) {
     return (
         <View style={styles.container}>
             {/* Card2 staying healthy tips*/}
             <TouchableOpacity
+                activeOpacity={.8}
                 onPress={() => props.navigation.navigate('healthtips', {
                     navigation: JSON.stringify(props.navigation),
                 })}
@@ -19,6 +19,7 @@ export default function OtherCards(props) {
             </TouchableOpacity>
             {/* Card1 Consult a doctor now*/}
             <TouchableOpacity
+                activeOpacity={.8}
                 onPress={() => props.navigation.navigate('doctors', {
                     navigation: JSON.stringify(props.navigation),
                 })}
@@ -30,6 +31,7 @@ export default function OtherCards(props) {
             </TouchableOpacity>
             {/* Card3 medicines and their uses*/}
             <TouchableOpacity
+                activeOpacity={.8}
                 onPress={() => props.navigation.navigate('medicines', {
                     navigation: JSON.stringify(props.navigation)
                 })}
@@ -71,7 +73,7 @@ const styles = StyleSheet.create({
         shadowRadius: 1,
         shadowOpacity: 1.0,
         elevation: 3,
-        zIndex:3
+        zIndex: 3
     },
     cardsText: {
         fontSize: 30,

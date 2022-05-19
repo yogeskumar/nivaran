@@ -1,18 +1,26 @@
-import { View, Text, StatusBar, SafeAreaView, StyleSheet, FlatList, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StatusBar, SafeAreaView, StyleSheet, FlatList, TouchableOpacity, ScrollView, RefreshControl, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { Colors } from './../Colors';
-import { Hospitals } from './../DataBase';
 import OtherCards from '../components/OtherCards';
 import FooterButtons from '../components/FooterButtons';
 import SearchBar from '../components/SearchBar';
 import LogoAndProfile from '../components/LogoAndProfile';
 import { firebase } from '@react-native-firebase/firestore';
 
-
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
 
 export default function Home({ navigation, route }) {
+    const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        fetchData()
+        wait(2000).then(() => setRefreshing(false));
+    }, []);
 
-    const [cities, setCities] = useState(null);
+    const [cities, setCities] = useState([]);
+
 
     const fetchData = async () => {
         // console.log(props.route);
@@ -21,7 +29,7 @@ export default function Home({ navigation, route }) {
         // setMedicines(allMedicines)
         try {
             if (querysnapshot.docs[0]._exists) {
-                console.log(allHospitals)
+                // console.log(allHospitals)
                 const allCities = []
                 allHospitals.map(item => {
                     allCities.push(item.city)
@@ -77,7 +85,12 @@ export default function Home({ navigation, route }) {
             // showsHorizontalScrollIndicator={false}
             style={styles.container}
         >
-            <ScrollView>
+            <ScrollView refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                />
+            }>
                 <View style={{
                     width: '100%', height: '100%',
                     backgroundColor: Colors.background,
@@ -94,15 +107,16 @@ export default function Home({ navigation, route }) {
                         <SearchBar navigation={navigation} />
                     </View>
                     {/* CitiesList */}
-                    <View>
-                        <FlatList
-                            data={cities}
-                            renderItem={renderItem}
-                            keyExtractor={item => item}
-                            horizontal={true}
-                            contentContainerStyle={styles.citiesContainer}
-                            showsHorizontalScrollIndicator={false}
-                        />
+                    <View>{
+                        cities.length > 0 ?
+                            <FlatList
+                                data={cities}
+                                renderItem={renderItem}
+                                keyExtractor={item => item}
+                                horizontal={true}
+                                contentContainerStyle={styles.citiesContainer}
+                                showsHorizontalScrollIndicator={false}
+                            /> : <ActivityIndicator size='large' />}
                     </View>
                     {/* otherCards */}
                     <OtherCards navigation={navigation} route={route} />

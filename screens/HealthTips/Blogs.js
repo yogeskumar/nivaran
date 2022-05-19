@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, Image, ScrollView, StyleSheet } from 'react-native'
+import { Text, TouchableOpacity, Image, ScrollView, StyleSheet, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { Dimensions } from 'react-native';
 import { Colors } from '../../Colors';
@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import firestore from '@react-native-firebase/firestore'
 
-  const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 export default function Blogs({ navigation }) {
 
   const [blogs, setBlogs] = useState()
@@ -16,7 +16,7 @@ export default function Blogs({ navigation }) {
     const allblogs = querysnapshot.docs.map(docsnap => docsnap.data());
     try {
       if (querysnapshot.docs[0]._exists) {
-        // console.log(allDoctors)
+        console.log(allblogs)
         setBlogs(allblogs)
       } else {
         console.log("No such document!");
@@ -38,18 +38,18 @@ export default function Blogs({ navigation }) {
       })}
       style={styles.card}
     ><>
-      <Image source={{uri:blog.mainImage}} style={{width:'95%', height:'85%'}} />
-        <Text style={{ color: Colors.primary, fontSize: 30 }}>{blog.title}</Text></>
+        <Image source={{ uri: blog.image }} style={{ width: '95%', height: '85%' }} />
+        <Text style={{ color: Colors.primary, fontSize: 25, flexShrink: 1 }}>{blog.title}</Text></>
     </TouchableOpacity>
   }
   return (
     <ScrollView
-    contentContainerStyle={{width:width, height:'100%', justifyContent:'center', alignItems:'center'}}
+      contentContainerStyle={{ width: width, height: '100%', justifyContent: 'center', alignItems: 'center' }}
     >
-      {blogs?
+      {blogs ?
         blogs.map(blog => {
-          return <BlogCard blog={blog} key={blog}/>
-        }):<Text style={{color:'black'}}>no data Blogs.js</Text>
+          return <BlogCard blog={blog} key={blog.title} />
+        }) : <ActivityIndicator size='large' />
       }
     </ScrollView>
   )
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     shadowColor: 'blue',
     shadowOffset: {
-        width: 0,
-        height: 10
+      width: 0,
+      height: 10
     },
     shadowRadius: 5,
     shadowOpacity: 1.0,
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     padding: 8,
     width: width * 0.95,
     height: height * 0.3,
-    marginVertical: 10,
+    marginVertical: 20,
     justifyContent: 'center',
     alignItems: 'center'
   }

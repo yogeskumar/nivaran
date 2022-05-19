@@ -29,6 +29,7 @@ import HealthTips from './screens/HealthTips/HealthTips';
 import Medicines from './screens/Medicines';
 import Doctors from './screens/Doctors';
 import Blog from './screens/HealthTips/Blog';
+import Medicine from './components/Medicine';
 
 const theme = {
   ...DefaultTheme,
@@ -91,6 +92,7 @@ function Navigation() {
         <Stack.Screen name='chat' component={Chat} options={{ headerShown: true, title: false }} />
         <Stack.Screen name='doctors' component={Doctors} options={{ headerShown: true, title: 'Doctors' }} />
         <Stack.Screen name='medicines' component={Medicines} options={{ headerShown: true, title: 'Medicines' }} />
+        <Stack.Screen name='medicine' component={Medicine} options={{ headerShown: true, title: 'Medicine' }} />
         <Stack.Screen name='healthtips' component={HealthTips} options={{ headerShown: true, title: 'Stay Healty Stay Fit, Health Tips' }} />
         <Stack.Screen name='blog' component={Blog} options={{ headerShown: true }} />
       </Stack.Navigator>

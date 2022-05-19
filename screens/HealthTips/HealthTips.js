@@ -12,7 +12,7 @@ import { Dimensions } from 'react-native';
 export default function HealthTips(props) {
   const { width, height } = Dimensions.get("window");
   const [backgroundColor, setBackgroundColor] = useState('#fff');
-  
+
   const [bgcLeft, setBgcLeft] = useState('#cce0ff')
   const [leftColor, setLeftColor] = useState('#1E74FD')
   const [bgcRight, setBgcRight] = useState(Colors.background)
@@ -21,7 +21,7 @@ export default function HealthTips(props) {
   const [screen, setScreen] = useState(<Blogs navigation={props.navigation} />);
 
   function onSwipeLeft(gestureState) {
-    setScreen(<Videos/>)
+    setScreen(<Videos />)
     setBgcLeft(Colors.background)
     setLeftColor('#aaa')
     setBgcRight('#cce0ff')
@@ -42,11 +42,11 @@ export default function HealthTips(props) {
   return (
     <SafeAreaView
       keyboardShouldPersistTaps='always'
-      style={{justifyContent:'space-between', alignItems:'center', flex:1, backgroundColor:Colors.background}}
+      style={{ justifyContent: 'space-between', alignItems: 'center', flex: 1, backgroundColor: Colors.background }}
     >
       <ScrollView>
-        <LogoAndProfile navigation={props.navigation} route={props.route} />
-        <View style={{display:'flex', flexDirection:'row'}}>
+        {/* <LogoAndProfile navigation={props.navigation} route={props.route} /> */}
+        <View style={{ display: 'flex', flexDirection: 'row' }}>
           <TouchableOpacity
             style={{ backgroundColor: bgcLeft, borderTopRightRadius: 35, width: '50%', paddingVertical: 10 }}
             onPress={() => {
@@ -57,19 +57,19 @@ export default function HealthTips(props) {
               setRightColor('#aaa')
             }}
           >
-            <Text style={{color:leftColor, textAlign:'center', fontSize:20, fontWeight:'600'}}>Blogs</Text>
+            <Text style={{ color: leftColor, textAlign: 'center', fontSize: 20, fontWeight: '600' }}>Blogs</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={{ backgroundColor: bgcRight, borderTopLeftRadius: 35, width: '50%', paddingVertical: 10 }}
             onPress={() => {
-              setScreen(<Videos/>)
+              setScreen(<Videos />)
               setBgcLeft(Colors.background)
               setLeftColor('#aaa')
               setBgcRight('#cce0ff')
               setRightColor('#1E74FD')
             }}
           >
-            <Text style={{color:rightColor, textAlign:'center', fontSize:20, fontWeight:'600'}}>Videos</Text>
+            <Text style={{ color: rightColor, textAlign: 'center', fontSize: 20, fontWeight: '600' }}>Videos</Text>
           </TouchableOpacity>
         </View>
         <GestureRecognizer
@@ -81,8 +81,8 @@ export default function HealthTips(props) {
           }}
         >
           <ScrollView>
-          {
-            screen?screen:<Text>No data</Text>
+            {
+              screen ? screen : <Text>No data</Text>
             }
           </ScrollView>
         </GestureRecognizer>
